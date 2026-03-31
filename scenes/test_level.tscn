@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://gmrul37k4i1h"]
+
+[ext_resource type="PackedScene" uid="uid://depbt1yixqqtm" path="res://scenes/player.tscn" id="1_2venv"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_paw1w"]
+
+[node name="test_level" type="Node2D" unique_id=375391151]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=592774527]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1056681999]
+shape = SubResource("WorldBoundaryShape2D_paw1w")
+
+[node name="Player" parent="." unique_id=1659936700 instance=ExtResource("1_2venv")]
