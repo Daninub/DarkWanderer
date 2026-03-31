@@ -367,9 +367,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
-radius = 13.0
-height = 42.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4r1p"]
+size = Vector2(24, 31)
 
 [node name="Player" type="CharacterBody2D" unique_id=1659936700]
 script = ExtResource("1_3vyb7")
@@ -380,6 +379,8 @@ sprite_frames = SubResource("SpriteFrames_jej6c")
 animation = &"crouch"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1454213948]
-shape = SubResource("CapsuleShape2D_g2els")
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_y4r1p")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1412584431]
+zoom = Vector2(2, 2)
