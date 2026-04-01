@@ -318,7 +318,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wnwbv")
 }],
-"loop": true,
+"loop": false,
 "name": &"death",
 "speed": 8.0
 }, {
@@ -340,7 +340,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bj30b")
 }],
-"loop": true,
+"loop": false,
 "name": &"hit",
 "speed": 8.0
 }, {
@@ -430,18 +430,18 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4r1p"]
-size = Vector2(24, 31)
+size = Vector2(32, 39)
 
-[node name="Player" type="CharacterBody2D" unique_id=1659936700]
+[node name="Player" type="CharacterBody2D" unique_id=1659936700 groups=["player"]]
 script = ExtResource("1_3vyb7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2090502713]
 position = Vector2(4, -23)
 sprite_frames = SubResource("SpriteFrames_jej6c")
-animation = &"dash"
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1454213948]
-position = Vector2(0, 1.5)
+position = Vector2(0, -2.5)
 shape = SubResource("RectangleShape2D_y4r1p")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1412584431]

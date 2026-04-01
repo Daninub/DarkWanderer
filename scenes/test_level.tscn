@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://depbt1yixqqtm" path="res://scenes/player.tscn" id="1_2venv"]
 [ext_resource type="Texture2D" uid="uid://b1we53lvmgwa" path="res://assets/maps/level1/Foreground/Trees.png" id="2_j6w7d"]
 [ext_resource type="Texture2D" uid="uid://d1xtrq2sitjt2" path="res://assets/maps/level1/Foreground/Tileset.png" id="2_paw1w"]
+[ext_resource type="PackedScene" uid="uid://c0jgnu8w5pd2s" path="res://scenes/enemies/bat.tscn" id="2_tmr53"]
+[ext_resource type="PackedScene" uid="uid://dute606h3vfan" path="res://scenes/hud.tscn" id="4_x4b8f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j6w7d"]
 texture = ExtResource("2_paw1w")
@@ -136,6 +138,11 @@ sources/2 = SubResource("TileSetAtlasSource_x4b8f")
 
 [node name="Nivel1" type="Node2D" parent="." unique_id=238954581]
 
+[node name="Player" parent="Nivel1" unique_id=1659936700 instance=ExtResource("1_2venv")]
+
+[node name="Bat" parent="Nivel1" unique_id=117167727 instance=ExtResource("2_tmr53")]
+position = Vector2(548, -11)
+
 [node name="TileMap" type="TileMap" parent="Nivel1" unique_id=531847483]
 position = Vector2(0, 1)
 tile_set = SubResource("TileSet_x4b8f")
@@ -152,4 +159,4 @@ layer_2/tile_data = PackedInt32Array(131071, 65537, 0, 65541, 65537, 0, 131067, 
 layer_3/name = "Puentes"
 layer_3/tile_data = PackedInt32Array(17, 393217, 4, 18, 393217, 3, 19, 458753, 3, 20, 524289, 3, 21, 589825, 3, 65556, 458753, 4, 65555, 458753, 4, 65557, 458753, 4, 65558, 458753, 4, 65559, 458753, 4, 65560, 458753, 4, 65561, 458753, 4, 22, 393217, 3, 23, 458753, 3, 24, 524289, 3, 25, 393217, 3, 26, 458753, 3, 27, 524289, 3, 65563, 458753, 4, 65562, 458753, 4, 28, 589825, 3, 29, 524289, 4)
 
-[node name="Player" parent="Nivel1" unique_id=1659936700 instance=ExtResource("1_2venv")]
+[node name="HUD" parent="Nivel1" unique_id=1010374123 instance=ExtResource("4_x4b8f")]

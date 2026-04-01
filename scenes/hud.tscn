@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dute606h3vfan"]
+
+[ext_resource type="Script" uid="uid://c7jxnxx13vpn1" path="res://scripts/hud.gd" id="1_ahhtf"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1010374123]
+script = ExtResource("1_ahhtf")
+
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=1567793113]
+offset_right = 40.0
+offset_bottom = 40.0
+value = 100.0

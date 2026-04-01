@@ -6,19 +6,40 @@ const DASH_SPEED = 500.0
 const DASH_DURATION = 0.2
 
 @onready var animated_sprite = $AnimatedSprite2D
+@onready var hud = get_parent().get_node("HUD")
 
 var is_dashing = false
 var dash_timer = 0.0
 var dash_direction = 1.0
 var is_attacking = false
+var max_health = 100
+var health = 100
+var is_dead = false
+var is_hurt = false
+var has_dealt_damage = false
+var knockback_velocity = Vector2.ZERO
 
 func _ready():
 	animated_sprite.animation_finished.connect(_on_animation_finished)
 
 func _on_animation_finished():
-	is_attacking = false
+	if is_attacking:
+		is_attacking = false
+		has_dealt_damage = false
+	if is_hurt:
+		is_hurt = false
+	if is_dead:
+		queue_free()
 
 func _physics_process(delta):
+	
+	# Aplicar knockback
+	if knockback_velocity != Vector2.ZERO:
+		velocity = knockback_velocity
+		knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, 25.0)
+	
+	if is_dead:
+		return
 	# Gravedad
 	if not is_on_floor() and not is_dashing:
 		velocity += get_gravity() * delta
@@ -30,6 +51,10 @@ func _physics_process(delta):
 		if dash_timer <= 0:
 			is_dashing = false
 			velocity.x = 0
+	
+	# Prueba de Daño
+	if Input.is_key_pressed(KEY_T):
+		take_damage(10)
 
 	# Movimiento siempre disponible
 	if not is_dashing:
@@ -53,11 +78,23 @@ func _physics_process(delta):
 	# Ataque
 	if Input.is_action_just_pressed("atacar") and not is_attacking:
 		is_attacking = true
+	
+	# Aplicar daño al enemigo en frame 2 del ataque
+	if is_attacking and not has_dealt_damage and animated_sprite.frame >= 2:
+		has_dealt_damage = true
+		var enemies = get_tree().get_nodes_in_group("enemy")
+		for enemy in enemies:
+			var distance = global_position.distance_to(enemy.global_position)
+			if distance <= 60.0:
+				var direction = (enemy.global_position - global_position).normalized()
+				enemy.take_damage(20, direction)
 
 	_update_animation()
 	move_and_slide()
 
 func _update_animation():
+	if is_dead or is_hurt:
+		return
 	if is_dashing:
 		animated_sprite.play("dash")
 		return
@@ -89,3 +126,22 @@ func _update_animation():
 		animated_sprite.play("run")
 	else:
 		animated_sprite.play("idle")
+	
+func take_damage(amount, knockback_direction = Vector2.ZERO):
+	if is_dead or is_hurt:
+		return
+	health -= amount
+	knockback_velocity = knockback_direction * 300.0
+	if health <= 0:
+		health = 0
+		die()
+	else:
+		is_hurt = true
+		animated_sprite.play("hit")
+	
+	hud.update_health(health, max_health)
+
+func die():
+	is_dead = true
+	velocity = Vector2.ZERO
+	animated_sprite.play("death")
